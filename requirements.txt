@@ -1,0 +1,10 @@
+ipykernel
+qiskit
+qiskit-ionq
+qiskit[machine-learning]
+qiskit-machine-learning[sparse]
+qiskit[optimization]
+qiskit[finance]
+matplotlib
+pylatexenc
+tensorflow
