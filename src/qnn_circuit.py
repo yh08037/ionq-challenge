@@ -54,11 +54,12 @@ class QnnCircuit:
 
 if __name__ == '__main__':
   qc = QnnCircuit(4, 3)
-  qc.get_circuit().draw('mpl')
 
   temp = np.array([[1, 2, 3], [3, 2, 1], [5, 4, 6], [2, 6, 4]])
   model_param = np.array([temp, temp, temp])
-  qc.set_params(model_param)
+  qc.set_weights(model_param)
   
   input_vector = np.array([1, 2, 3, 4])
-  qc.run(input_vector)
+  out = qc.run(input_vector)
+
+  print(out)

@@ -8,3 +8,6 @@ qiskit[finance]
 matplotlib
 pylatexenc
 tensorflow
+torch
+torchvision
+torchaudio
