@@ -5,9 +5,14 @@ qiskit[machine-learning]
 qiskit-machine-learning[sparse]
 qiskit[optimization]
 qiskit[finance]
+qiskit[nature]
 matplotlib
 pylatexenc
 tensorflow
 torch
 torchvision
 torchaudio
+pennylane
+pennylane-lightning
+pennylane-lightning[gpu]
+pennylane-qiskit
