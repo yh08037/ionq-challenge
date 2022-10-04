@@ -16,3 +16,4 @@ pennylane
 pennylane-lightning
 pennylane-lightning[gpu]
 pennylane-qiskit
+seaborn
