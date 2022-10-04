@@ -10,17 +10,23 @@ libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion vim python3 py
 RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh -O ~/anaconda.sh && /bin/bash ~/anaconda.sh -b -p /opt/conda && \
 rm ~/anaconda.sh && ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
+    echo "conda activate ionq" >> ~/.bashrc
 
-#RUN apt-get install -y curl grep sed dpkg && \
-#	TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
-#	curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
-#	dpkg -i tini.deb && \
-#	rm tini.deb && \
-#	apt-get clean
+RUN conda create -n ionq python=3
 
-RUN pip install ipykernel qiskit qiskit-ionq qiskit[machine-learning] qiskit-machine-learning[sparse] qiskit[optimization] qiskit[finance] qiskit[nature] matplotlib pylatexenc tensorflow torch torchvision torchaudio pennylane pennylane-lightning pennylane-lightning[gpu] pennylane-qiskit seaborn
-	
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
+RUN /bin/bash -c "source activate ionq && pip install --upgrade pip && \
+    pip install notebook ipykernel tqdm numpy pandas matplotlib seaborn pylatexenc \
+    qiskit qiskit-ionq qiskit[machine-learning] qiskit-machine-learning[sparse] \
+    qiskit[optimization] qiskit[finance] qiskit[nature] \
+    torch torchvision \
+    pennylane pennylane-lightning pennylane-lightning[gpu] pennylane-qiskit" 
+
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
+    apt install git-lfs
+
+RUN git clone -b submit --single-branch https://github.com/yh08037/ionq-challenge.git /home/dohunkim && \
+    cd /home/dohunkim/ && git lfs pull
+
+RUN echo "cd /home/dohunkim" >> ~/.bashrc
+
 CMD [ "/bin/bash" ]
-
